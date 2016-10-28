@@ -1,0 +1,37 @@
+{
+  "name": "japanese-translator-facebook-bot",
+  "version": "1.0.0",
+  "description": "Japanese translating Facebook messenger bot",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/darren-lester/japanese-translator-facebook-bot.git"
+  },
+  "keywords": [
+    "japanese",
+    "english",
+    "translator",
+    "translation",
+    "facebook",
+    "messenger",
+    "chat",
+    "bot"
+  ],
+  "author": "Darren Lester <dsslester@gmail.com>",
+  "license": "MIT",
+  "homepage": "",
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "japanese-translator-interface": "^1.0.1",
+    "nihongo": "^1.0.0",
+    "node-fetch": "^1.6.3",
+    "request": "^2.75.0"
+  }
+}
