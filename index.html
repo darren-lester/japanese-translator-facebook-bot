@@ -4,6 +4,13 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Japanese Translator Bot</title>
+
+	<meta property="og:url"           content="http://www.japanesetranslatorbot.com" />
+	<meta property="og:type"          content="website" />
+	<meta property="og:title"         content="Japanese Translator Bot" />
+	<meta property="og:description"   content="Japanese Translator Bot" />
+	<meta property="og:image"         content="http://japanesetranslatorbot.com/icon.png" />
+
 	<style>
 		body {
 			background-color: #FFEA00;
@@ -35,6 +42,16 @@
 	</style>
 </head>
 <body>
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.8&appId=1272404142825959";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+	</script>
+
 	<header>
 		Japanese Translator Bot
 	</header>
@@ -45,7 +62,8 @@
 
 		<a id="try" href="https://www.facebook.com/JapaneseTranslatorBot">Try it here!</a>
 
-		<div id="social"></div>
+		<div class="fb-like" data-href="http://www/japanesetranslatorbot.com" data-width="80" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+		
 	</article>
 
 	<footer>
