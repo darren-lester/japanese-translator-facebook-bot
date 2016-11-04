@@ -27,22 +27,46 @@
 			font-size: 2em;
 		}
 		#logo {
-			width: 80%;
+			width: 60%;
 			max-width: 500px;
 		}
 
 		#try {
 			font-weight: bold;
 			display: block;
+			margin-top: 0;
+		}
+
+		#description{
+			margin: 0 0 0.5em 0 ;
 		}
 
 		footer {
 			margin-top: 2em;
 		}
 
-		@media screen and (max-device-width: 500px) {
+		@media screen and (max-width: 500px) {
+			body {
+				font-size: 12px;
+			}
+
 			header {
 				font-size: 2.5em;
+			}
+		}
+
+		@media screen and (max-height: 420px) {
+			body {
+				font-size: 12px;
+			}
+
+			header {
+				font-size: 2.5em;
+			}
+
+			#logo {
+				float: left;
+				width: 30%;
 			}
 		}
 	</style>
