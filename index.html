@@ -17,10 +17,13 @@
 			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 			color: #00BAFF;
 			text-align: center;
+			
+			margin: 0;
 		}
 
 		header {
 			font-size: 4em;
+			margin-bottom: 1em;
 		}
 		
 		article {
@@ -42,7 +45,9 @@
 		}
 
 		footer {
-			margin-top: 2em;
+			position: absolute;
+			bottom: 1em;
+			width: 100%;
 		}
 
 		@media screen and (max-width: 500px) {
@@ -65,8 +70,14 @@
 			}
 
 			#logo {
-				float: left;
+				float: right;
 				width: 30%;
+				margin-right: 2em;
+			}
+
+			#description, #try, #social {
+				text-align: left;
+				margin: 0 2em;
 			}
 		}
 	</style>
@@ -92,7 +103,7 @@
 
 		<a id="try" href="https://www.facebook.com/JapaneseTranslatorBot">Try it here!</a>
 
-		<div class="fb-like" data-href="https://www.facebook.com/JapaneseTranslatorBot/" data-width="80" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+		<div id="social"><div class="fb-like" data-href="https://www.facebook.com/JapaneseTranslatorBot/" data-width="80" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div></div>
 		
 	</article>
 
