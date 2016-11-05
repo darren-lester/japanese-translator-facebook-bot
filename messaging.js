@@ -4,7 +4,7 @@ const request = require("request");
 const translator = require("japanese-translator-interface");
 
 function receivedAuthentication(event) {
-	console.log("received authentication", event);
+  console.log("received authentication", event);
 }
 
 function receivedMessage(event) {
@@ -34,8 +34,8 @@ function receivedMessage(event) {
   }
   else {
     // Send message alerting user only text may be translated
-  	const messageData = {
-  	  recipient: {
+    const messageData = {
+      recipient: {
       id: senderID
       },
       message: {
@@ -43,16 +43,16 @@ function receivedMessage(event) {
       }
   };
 
-  	callSendAPI(messageData);
+    callSendAPI(messageData);
   }
 }
 
 function receivedDeliveryConfirmation(event) {
-	console.log("received delivery confirmation", event);
+  console.log("received delivery confirmation", event);
 }
 
 function receivedPostback(event) {
-	console.log("received postback", event);
+  console.log("received postback", event);
 }
 
 function sendTranslatedMessage(recipientId, messageText) {
@@ -86,15 +86,45 @@ function callSendAPI(messageData) {
       const messageId = body.message_id;
 
       console.log("Successfully sent generic message with id %s to recipient \
-      	%s", messageId, recipientId);
+        %s", messageId, recipientId);
     }
     else {
       console.error("Unable to send message.");
       console.error(response);
       console.error(error);
+
+      if (body.error.message === "(#100) Length of param message[text] must be less than or equal to 320") {
+        messageData.message.text = "Sorry, facebook limits the amount of characters I can send to you. Please try and send me that in small chunks!";
+        callSendAPI(messageData);
+      }
     }
   });  
 }
+
+function sendHelpMessage(recipientID){
+  const messageData = {
+    recipient: {
+      id: recipientID
+    },
+    message: {
+      text: "Send me some text and I will send you a Japanese translation. \
+      よろしくね！(*^‿^*)"
+    }
+  };
+
+  callSendAPI(messageData);
+}
+
+function receivedDeliveryConfirmation(event){
+  console.log("received delivery notification", event);
+}
+
+module.exports = {
+  receivedAuthentication: receivedAuthentication,
+  receivedMessage: receivedMessage,
+  receivedDeliveryConfirmation: receivedDeliveryConfirmation,
+  receivedPostback: receivedPostback
+};
 
 function sendHelpMessage(recipientID){
 	const messageData = {
