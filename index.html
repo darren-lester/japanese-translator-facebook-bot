@@ -34,6 +34,23 @@
 	}
 	</script>
 
+	<script>window.twttr = (function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0],
+	    t = window.twttr || {};
+	  if (d.getElementById(id)) return t;
+	  js = d.createElement(s);
+	  js.id = id;
+	  js.src = "https://platform.twitter.com/widgets.js";
+	  fjs.parentNode.insertBefore(js, fjs);
+
+	  t._e = [];
+	  t.ready = function(f) {
+	    t._e.push(f);
+	  };
+
+	  return t;
+	}(document, "script", "twitter-wjs"));</script>
+
 	<style>
 		body {
 			background-color: #FFEA00;
@@ -127,7 +144,11 @@
 
 		<a id="try" href="https://www.facebook.com/JapaneseTranslatorBot">Try it here!</a>
 
-		<div id="social"><div class="fb-like" data-href="https://www.facebook.com/JapaneseTranslatorBot/" data-width="80" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div></div>
+		<div id="social">
+		<a class="twitter-share-button"
+		  href="https://twitter.com/intent/tweet?text=Try%20the%20Japanese%20Translator%20Chat%20Bot%20for%20Facebook%20Messenger&url=http://www.japanesetranslatorbot.com&hashtags=japanese,translator,chatbot">
+		Tweet</a>
+		<div class="fb-like" data-href="https://www.facebook.com/JapaneseTranslatorBot/" data-width="80" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div></div>
 		
 	</article>
 
