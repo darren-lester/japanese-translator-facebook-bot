@@ -117,10 +117,6 @@ function sendHelpMessage(recipientID){
   callSendAPI(messageData);
 }
 
-function receivedDeliveryConfirmation(event){
-	console.log("received delivery notification", event);
-}
-
 module.exports = {
 	receivedAuthentication: receivedAuthentication,
 	receivedMessage: receivedMessage,
