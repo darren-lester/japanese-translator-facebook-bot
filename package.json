@@ -1,6 +1,6 @@
 {
   "name": "japanese-translator-facebook-bot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Japanese translating Facebook messenger bot",
   "private": true,
   "main": "index.js",
