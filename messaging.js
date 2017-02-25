@@ -3,6 +3,9 @@
 const request = require("request");
 const translator = require("japanese-translator-interface");
 
+const helpMessage = "Send me some text and I will send you a Japanese \
+translation. よろしくね！(*^‿^*)";
+
 function receivedAuthentication(event) {
   console.log("received authentication", event);
 }
@@ -107,8 +110,7 @@ function sendHelpMessage(recipientID){
       id: recipientID
     },
     message: {
-      text: "Send me some text and I will send you a Japanese translation. \
-      よろしくね！(*^‿^*)"
+      text: helpMessage
     }
   };
 
@@ -132,8 +134,7 @@ function sendHelpMessage(recipientID){
       id: recipientID
     },
     message: {
-      text: "Send me some text and I will send you a Japanese translation. \
-      よろしくね！(*^‿^*)"
+      text: helpMessage
     }
   };
 
