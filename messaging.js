@@ -105,30 +105,6 @@ function callSendAPI(messageData) {
 }
 
 function sendHelpMessage(recipientID){
-  const messageData = {
-    recipient: {
-      id: recipientID
-    },
-    message: {
-      text: helpMessage
-    }
-  };
-
-  callSendAPI(messageData);
-}
-
-function receivedDeliveryConfirmation(event){
-  console.log("received delivery notification", event);
-}
-
-module.exports = {
-  receivedAuthentication: receivedAuthentication,
-  receivedMessage: receivedMessage,
-  receivedDeliveryConfirmation: receivedDeliveryConfirmation,
-  receivedPostback: receivedPostback
-};
-
-function sendHelpMessage(recipientID){
 	const messageData = {
     recipient: {
       id: recipientID
