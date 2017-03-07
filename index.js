@@ -58,6 +58,10 @@ app.post('/webhook', function (req, res) {
   }
 });
 
+app.get("/status", function(req, res){
+  res.status(200).send("200 生きるよ");
+});
+
 const port = process.env.PORT;
 
 app.listen(port, function(){
