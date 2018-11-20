@@ -2,10 +2,7 @@
 
 const request = require('request');
 const translator = require('japanese-translator-interface');
-
-const helpMessage =
-  'Send me some text and I will send you a Japanese \
-translation. よろしくね！(*^‿^*)';
+const messages = require('./messages');
 
 function receivedAuthentication(event) {
   console.log('received authentication', event);
@@ -45,7 +42,7 @@ function receivedMessage(event) {
         id: senderID,
       },
       message: {
-        text: 'Sorry, I only understand text messages!',
+        text: messages.onlyText,
       },
     };
 
@@ -111,8 +108,7 @@ function callSendAPI(messageData) {
             body.error.message ===
           '(#100) Length of param message[text] must be less than or equal to 320'
           ) {
-            messageData.message.text =
-            'Sorry, facebook limits the amount of characters I can send to you. Please try and send me that in small chunks!';
+            messageData.message.text = messages.characterLimit;
             callSendAPI(messageData);
           }
         }
@@ -126,7 +122,7 @@ function sendHelpMessage(recipientID) {
       id: recipientID,
     },
     message: {
-      text: helpMessage,
+      text: messages.help,
     },
   };
 
