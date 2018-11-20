@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "eslint": "eslint .",
-    "precommit": "npm run eslint",
+    "precommit": "npm run prettier && npm run eslint",
+    "prettier": "prettier --write *.js",
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

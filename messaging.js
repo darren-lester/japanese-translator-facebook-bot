@@ -15,10 +15,10 @@ function receivedMessage(event) {
   const message = event.message;
 
   console.log(
-      'Received message for user %d and page %d at %d with message:',
-      senderID,
-      recipientID,
-      timeOfMessage
+    'Received message for user %d and page %d at %d with message:',
+    senderID,
+    recipientID,
+    timeOfMessage
   );
   console.log(JSON.stringify(message));
 
@@ -70,49 +70,49 @@ function sendTranslatedMessage(recipientId, messageText) {
 
   // Translate message and send translation to sender
   translator
-      .translate(messageText)
-      .then(function(res) {
-        return res.json();
-      })
-      .then(function(json) {
-        messageData.message.text = json.translation;
-        callSendAPI(messageData);
-      });
+    .translate(messageText)
+    .then(function(res) {
+      return res.json();
+    })
+    .then(function(json) {
+      messageData.message.text = json.translation;
+      callSendAPI(messageData);
+    });
 }
 
 function callSendAPI(messageData) {
   request(
-      {
-        uri: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-        method: 'POST',
-        json: messageData
-      },
-      function(error, response, body) {
-        if (!error && response.statusCode == 200) {
-          const recipientId = body.recipient_id;
-          const messageId = body.message_id;
+    {
+      uri: 'https://graph.facebook.com/v2.6/me/messages',
+      qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
+      method: 'POST',
+      json: messageData
+    },
+    function(error, response, body) {
+      if (!error && response.statusCode == 200) {
+        const recipientId = body.recipient_id;
+        const messageId = body.message_id;
 
-          console.log(
-              'Successfully sent generic message with id %s to recipient \
+        console.log(
+          'Successfully sent generic message with id %s to recipient \
         %s',
-              messageId,
-              recipientId
-          );
-        } else {
-          console.error('Unable to send message.');
-          console.error(response);
-          console.error(error);
+          messageId,
+          recipientId
+        );
+      } else {
+        console.error('Unable to send message.');
+        console.error(response);
+        console.error(error);
 
-          if (
-            body.error.message ===
+        if (
+          body.error.message ===
           '(#100) Length of param message[text] must be less than or equal to 320'
-          ) {
-            messageData.message.text = messages.characterLimit;
-            callSendAPI(messageData);
-          }
+        ) {
+          messageData.message.text = messages.characterLimit;
+          callSendAPI(messageData);
         }
       }
+    }
   );
 }
 
