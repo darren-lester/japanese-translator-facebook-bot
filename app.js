@@ -3,6 +3,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const messaging = require('./messaging');
+const statusRouter = require('./routers/status');
 
 const app = express();
 app.use(bodyParser.json());
@@ -52,8 +53,6 @@ app.post('/webhook', function(req, res) {
   }
 });
 
-app.get('/status', function(req, res) {
-  res.status(200).send('200 生きるよ');
-});
+app.use('/status', statusRouter);
 
 module.exports = app;
