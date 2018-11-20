@@ -39,11 +39,11 @@ function receivedMessage(event) {
     // Send message alerting user only text may be translated
     const messageData = {
       recipient: {
-        id: senderID,
+        id: senderID
       },
       message: {
-        text: messages.onlyText,
-      },
+        text: messages.onlyText
+      }
     };
 
     callSendAPI(messageData);
@@ -61,11 +61,11 @@ function receivedPostback(event) {
 function sendTranslatedMessage(recipientId, messageText) {
   const messageData = {
     recipient: {
-      id: recipientId,
+      id: recipientId
     },
     message: {
-      text: '',
-    },
+      text: ''
+    }
   };
 
   // Translate message and send translation to sender
@@ -86,7 +86,7 @@ function callSendAPI(messageData) {
         uri: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
         method: 'POST',
-        json: messageData,
+        json: messageData
       },
       function(error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -119,11 +119,11 @@ function callSendAPI(messageData) {
 function sendHelpMessage(recipientID) {
   const messageData = {
     recipient: {
-      id: recipientID,
+      id: recipientID
     },
     message: {
-      text: messages.help,
-    },
+      text: messages.help
+    }
   };
 
   callSendAPI(messageData);
@@ -133,5 +133,5 @@ module.exports = {
   receivedAuthentication: receivedAuthentication,
   receivedMessage: receivedMessage,
   receivedDeliveryConfirmation: receivedDeliveryConfirmation,
-  receivedPostback: receivedPostback,
+  receivedPostback: receivedPostback
 };
