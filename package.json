@@ -5,6 +5,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
+    "eslint": "eslint .",
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -36,5 +37,9 @@
     "nihongo": "^1.0.0",
     "node-fetch": "^1.6.3",
     "request": "^2.75.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.9.0",
+    "eslint-config-google": "^0.11.0"
   }
 }
