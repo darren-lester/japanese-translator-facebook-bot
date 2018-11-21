@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "eslint": "eslint **/*.js",
-    "precommit": "npm run prettier && npm run eslint",
+    "precommit": "npm run prettier && npm run eslint && npm run test",
     "prettier": "prettier --write **/*.js",
     "start": "node src/index.js",
     "test": "jest"
