@@ -1,6 +1,6 @@
 const express = require('express');
 
-const messaging = require('./messaging');
+const messaging = require('../messaging');
 
 const webhookRouter = express.Router();
 
