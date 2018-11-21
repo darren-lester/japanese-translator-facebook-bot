@@ -13,8 +13,10 @@ describe('/status', () => {
     app.use('/status', statusRouter);
   });
 
-  test('returns 200', async () => {
-    const response = await request(app).get('/status');
-    expect(response.statusCode).toBe(200);
+  describe('GET', () => {
+    test('returns 200', async () => {
+      const response = await request(app).get('/status');
+      expect(response.statusCode).toBe(200);
+    });
   });
 });
