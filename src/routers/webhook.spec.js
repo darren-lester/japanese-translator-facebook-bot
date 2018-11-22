@@ -14,8 +14,14 @@ describe('/webhook', () => {
   });
 
   describe('GET', () => {
+    const query = {
+      'hub.mode': 'subscribe',
+      'hub.verify_token': 'token',
+      'hub.challenge': 'challenge'
+    };
+
     beforeAll(() => {
-      process.env.VALIDATION_TOKEN = 'token';
+      process.env.VALIDATION_TOKEN = query['hub.verify_token'];
     });
 
     afterAll(() => {
@@ -24,17 +30,20 @@ describe('/webhook', () => {
 
     describe('request made with correct token', () => {
       test('returns 200', async () => {
-        const query = {
-          'hub.mode': 'subscribe',
-          'hub.verify_token': 'token',
-          'hub.challenge': 'challenge'
-        };
-
         const response = await request(app)
           .get('/webhook')
           .query(query);
         expect(response.statusCode).toBe(200);
         expect(response.text).toBe(query['hub.challenge']);
+      });
+    });
+
+    describe('request made with incorrect token', () => {
+      test('returns 403', async () => {
+        const response = await request(app)
+          .get('/webhook')
+          .query({ ...query, 'hub.verify_token': 'incorrecttoken' });
+        expect(response.statusCode).toBe(403);
       });
     });
   });

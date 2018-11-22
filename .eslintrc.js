@@ -4,7 +4,7 @@ module.exports = {
     browser: false,
     node: true
   },
-  parserOptions: { ecmaVersion: 8 },
+  parserOptions: { ecmaVersion: 2018 },
   rules: {
     'require-jsdoc': 0,
     'max-len': 1,
