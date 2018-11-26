@@ -2,15 +2,24 @@
 
 const request = require('supertest');
 const express = require('express');
+const bodyParser = require('body-parser');
 
+const messaging = require('../messaging');
 const webhookRouter = require('./webhook');
+
+jest.mock('../messaging');
 
 describe('/webhook', () => {
   let app;
 
-  beforeEach(() => {
+  beforeAll(() => {
     app = express();
+    app.use(bodyParser.json());
     app.use('/webhook', webhookRouter);
+  });
+
+  afterAll(() => {
+    jest.unmock('../messaging');
   });
 
   describe('GET', () => {
@@ -44,6 +53,36 @@ describe('/webhook', () => {
           .get('/webhook')
           .query({ ...query, 'hub.verify_token': 'incorrecttoken' });
         expect(response.statusCode).toBe(403);
+      });
+    });
+  });
+
+  describe('POST', () => {
+    const body = {
+      object: 'page',
+      entry: [
+        {
+          messaging: [
+            {
+              message: {}
+            },
+            {
+              message: {}
+            },
+            {
+              message: {}
+            }
+          ]
+        }
+      ]
+    };
+
+    describe('when requested with a list of messages', () => {
+      test('processes each message', async () => {
+        await request(app)
+          .post('/webhook')
+          .send(body);
+        expect(messaging.receivedMessage).toBeCalledTimes(3);
       });
     });
   });
