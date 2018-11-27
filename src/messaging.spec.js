@@ -13,7 +13,7 @@ nock(process.env.TRANSLATOR)
   });
 
 const facebook = nock('https://graph.facebook.com')
-  .post('/v2.6/me/messages', {
+  .post(new RegExp('^/v2.6/me/messages'), {
     recipient: {
       id: 1
     },
