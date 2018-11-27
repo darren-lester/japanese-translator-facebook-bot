@@ -9,15 +9,15 @@ function receivedAuthentication(event) {
 }
 
 async function receivedMessage(event) {
-  const senderID = event.sender.id;
-  const recipientID = event.recipient.id;
+  const senderId = event.sender.id;
+  const recipientId = event.recipient.id;
   const timeOfMessage = event.timestamp;
   const message = event.message;
 
   console.log(
     'Received message for user %d and page %d at %d with message:',
-    senderID,
-    recipientID,
+    senderId,
+    recipientId,
     timeOfMessage
   );
   console.log(JSON.stringify(message));
@@ -29,23 +29,15 @@ async function receivedMessage(event) {
     // keywords and send back appropriate response. Otherwise, send translation.
     switch (messageText) {
       case ':help':
-        return sendHelpMessage(senderID);
+        return sendHelpMessage(senderId);
         break;
 
       default:
-        return sendTranslatedMessage(senderID, messageText);
+        return sendTranslatedMessage(senderId, messageText);
     }
   } else {
     // Send message alerting user only text may be translated
-    const messageData = {
-      recipient: {
-        id: senderID
-      },
-      message: {
-        text: messages.onlyText
-      }
-    };
-
+    const messageData = createMessageData(senderId, messages.onlyText);
     return facebook.send(messageData);
   }
 }
@@ -59,14 +51,7 @@ function receivedPostback(event) {
 }
 
 async function sendTranslatedMessage(recipientId, messageText) {
-  const messageData = {
-    recipient: {
-      id: recipientId
-    },
-    message: {
-      text: ''
-    }
-  };
+  const messageData = createMessageData(recipientId);
 
   // Translate message and send translation to sender
   const translatorResponse = await translator.translate(messageText);
@@ -75,17 +60,20 @@ async function sendTranslatedMessage(recipientId, messageText) {
   return facebook.send(messageData);
 }
 
-async function sendHelpMessage(recipientID) {
-  const messageData = {
+async function sendHelpMessage(recipientId) {
+  const messageData = createMessageData(recipientId, messages.help);
+  return facebook.send(messageData);
+}
+
+function createMessageData(recipientId, message = '') {
+  return {
     recipient: {
-      id: recipientID
+      id: recipientId
     },
     message: {
-      text: messages.help
+      text: message
     }
   };
-
-  return facebook.send(messageData);
 }
 
 module.exports = {
