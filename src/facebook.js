@@ -4,6 +4,13 @@ const fetch = require('node-fetch');
 
 const messages = require('./messages');
 
+const ERROR_RESPONSES = {
+  '(#100) Length of param message[text] must be less than or equal to 320':
+    messages.characterLimit
+};
+
+const DEFAULT_ERROR_RESPONSE = 'Sorry, something went wrong.';
+
 async function send(messageData) {
   const response = await fetch(
     `https://graph.facebook.com/v2.6/me/messages?access_token=${
@@ -34,13 +41,9 @@ async function send(messageData) {
 }
 
 async function sendErrorMessage(error, messageData) {
-  if (
-    error.message ===
-    '(#100) Length of param message[text] must be less than or equal to 320'
-  ) {
-    messageData.message.text = messages.characterLimit;
-    return send(messageData);
-  }
+  messageData.message.text =
+    ERROR_RESPONSES[error.message] || DEFAULT_ERROR_RESPONSE;
+  return send(messageData);
 }
 
 module.exports = {
