@@ -2,6 +2,8 @@
 
 const request = require('request');
 
+const messages = require('./messages');
+
 async function send(messageData) {
   return new Promise((resolve, reject) => {
     request(
