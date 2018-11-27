@@ -20,16 +20,7 @@ async function send(messageData) {
   if (body.error) {
     console.error('Unable to send message.');
     console.error(body.error);
-
-    if (
-      body.error.message ===
-      '(#100) Length of param message[text] must be less than or equal to 320'
-    ) {
-      messageData.message.text = messages.characterLimit;
-      return callSendAPI(messageData);
-    }
-
-    return;
+    return sendErrorMessage(body.error, messageData);
   }
 
   const recipientId = body.recipient_id;
@@ -40,6 +31,16 @@ async function send(messageData) {
     messageId,
     recipientId
   );
+}
+
+async function sendErrorMessage(error, messageData) {
+  if (
+    error.message ===
+    '(#100) Length of param message[text] must be less than or equal to 320'
+  ) {
+    messageData.message.text = messages.characterLimit;
+    return send(messageData);
+  }
 }
 
 module.exports = {
