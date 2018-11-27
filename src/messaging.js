@@ -126,8 +126,8 @@ async function sendHelpMessage(recipientID) {
 }
 
 module.exports = {
-  receivedAuthentication: receivedAuthentication,
-  receivedMessage: receivedMessage,
-  receivedDeliveryConfirmation: receivedDeliveryConfirmation,
-  receivedPostback: receivedPostback
+  receivedAuthentication,
+  receivedMessage,
+  receivedDeliveryConfirmation,
+  receivedPostback
 };
