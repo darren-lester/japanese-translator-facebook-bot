@@ -24,8 +24,6 @@ async function receivedMessage(event) {
 
   if (isTextMessage(message)) {
     const { text } = message;
-    // If we receive a text message, check to see if it matches any special
-    // keywords and send back appropriate response. Otherwise, send translation.
     switch (text) {
       case ':help':
         return sendHelpMessage(senderID);
@@ -35,7 +33,6 @@ async function receivedMessage(event) {
         return sendTranslatedMessage(senderID, text);
     }
   } else {
-    // Send message alerting user only text may be translated
     const messageData = createMessageData(senderId, messages.onlyText);
     return facebook.send(messageData);
   }
@@ -55,8 +52,6 @@ function receivedPostback(event) {
 
 async function sendTranslatedMessage(recipientId, messageText) {
   const messageData = createMessageData(recipientId);
-
-  // Translate message and send translation to sender
   const translatorResponse = await translator.translate(messageText);
   const json = await translatorResponse.json();
   messageData.message.text = json.translation;

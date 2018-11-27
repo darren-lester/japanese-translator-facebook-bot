@@ -27,7 +27,6 @@ webhookRouter.post('/', function(req, res) {
     // Iterate over each entry
     // There may be multiple if batched
     data.entry.forEach(function(pageEntry) {
-      // Iterate over each messaging event
       pageEntry.messaging.forEach(function(messagingEvent) {
         if (messagingEvent.optin) {
           messaging.receivedAuthentication(messagingEvent);
