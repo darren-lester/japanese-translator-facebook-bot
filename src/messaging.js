@@ -9,37 +9,40 @@ function receivedAuthentication(event) {
 }
 
 async function receivedMessage(event) {
-  const senderId = event.sender.id;
-  const recipientId = event.recipient.id;
+  const senderID = event.sender.id;
+  const recipientID = event.recipient.id;
   const timeOfMessage = event.timestamp;
   const message = event.message;
 
   console.log(
     'Received message for user %d and page %d at %d with message:',
-    senderId,
-    recipientId,
+    senderID,
+    recipientID,
     timeOfMessage
   );
   console.log(JSON.stringify(message));
 
-  const messageText = message.text;
-
-  if (messageText) {
+  if (isTextMessage(message)) {
+    const { text } = message;
     // If we receive a text message, check to see if it matches any special
     // keywords and send back appropriate response. Otherwise, send translation.
-    switch (messageText) {
+    switch (text) {
       case ':help':
-        return sendHelpMessage(senderId);
+        return sendHelpMessage(senderID);
         break;
 
       default:
-        return sendTranslatedMessage(senderId, messageText);
+        return sendTranslatedMessage(senderID, text);
     }
   } else {
     // Send message alerting user only text may be translated
     const messageData = createMessageData(senderId, messages.onlyText);
     return facebook.send(messageData);
   }
+}
+
+function isTextMessage(message) {
+  return !!message.text;
 }
 
 function receivedDeliveryConfirmation(event) {
