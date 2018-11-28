@@ -2,7 +2,7 @@
 
 const translator = require('japanese-translator-interface');
 const messages = require('./messages');
-const facebook = require('./facebook');
+const facebook = require('../facebook');
 
 function receivedAuthentication(event) {
   console.log('received authentication', event);
