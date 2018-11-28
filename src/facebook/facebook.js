@@ -26,10 +26,7 @@ async function send(messageData) {
   const recipientId = body.recipient_id;
   const messageId = body.message_id;
   console.log(
-    'Successfully sent generic message with id %s to recipient \
-                %s',
-    messageId,
-    recipientId
+    `Successfully sent generic message with id ${messageId} to recipient ${recipientId}`
   );
 }
 

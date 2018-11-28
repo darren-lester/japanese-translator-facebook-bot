@@ -15,10 +15,7 @@ async function receivedMessage(event) {
   const message = event.message;
 
   console.log(
-    'Received message for user %d and page %d at %d with message:',
-    senderID,
-    recipientID,
-    timeOfMessage
+    `Received message for user ${senderID} and page ${recipientID} at ${timeOfMessage} with message:`
   );
   console.log(JSON.stringify(message));
 
