@@ -2,14 +2,7 @@
 
 const fetch = require('node-fetch');
 
-const messages = require('../messages');
-
-const ERROR_RESPONSES = {
-  '(#100) Length of param message[text] must be less than or equal to 320':
-    messages.characterLimit
-};
-
-const DEFAULT_ERROR_RESPONSE = 'Sorry, something went wrong.';
+const errorResponse = require('./error-response');
 
 async function send(messageData) {
   const response = await fetch(
@@ -41,8 +34,7 @@ async function send(messageData) {
 }
 
 async function sendErrorMessage(error, messageData) {
-  messageData.message.text =
-    ERROR_RESPONSES[error.message] || DEFAULT_ERROR_RESPONSE;
+  messageData.message.text = errorResponse(error.message);
   return send(messageData);
 }
 
