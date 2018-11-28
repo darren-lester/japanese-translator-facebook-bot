@@ -2,7 +2,7 @@
 
 const fetch = require('node-fetch');
 
-const messages = require('./messages');
+const messages = require('../messages');
 
 const ERROR_RESPONSES = {
   '(#100) Length of param message[text] must be less than or equal to 320':
