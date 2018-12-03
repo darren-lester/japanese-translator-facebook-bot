@@ -7,6 +7,7 @@ const createMessage = require('./create-message');
 const isTextMessage = require('./is-text-message');
 const receivedAuthentication = require('./received-authentication');
 const receivedDeliveryConfirmation = require('./received-delivery-confirmation');
+const receivedPostback = require('./received-postback');
 
 async function receivedMessage(event) {
   const senderID = event.sender.id;
@@ -33,10 +34,6 @@ async function receivedMessage(event) {
     const message = createMessage(senderId, messages.onlyText);
     return facebook.send(message);
   }
-}
-
-function receivedPostback(event) {
-  console.log('received postback', event);
 }
 
 async function sendTranslatedMessage(recipientId, messageText) {
