@@ -3,6 +3,7 @@
 const translator = require('japanese-translator-interface');
 const messages = require('./messages');
 const facebook = require('../facebook');
+const createMessage = require('./create-message');
 
 function receivedAuthentication(event) {
   console.log('received authentication', event);
@@ -30,8 +31,8 @@ async function receivedMessage(event) {
         return sendTranslatedMessage(senderID, text);
     }
   } else {
-    const messageData = createMessageData(senderId, messages.onlyText);
-    return facebook.send(messageData);
+    const message = createMessage(senderId, messages.onlyText);
+    return facebook.send(message);
   }
 }
 
@@ -48,27 +49,16 @@ function receivedPostback(event) {
 }
 
 async function sendTranslatedMessage(recipientId, messageText) {
-  const messageData = createMessageData(recipientId);
+  const message = createMessage(recipientId);
   const translatorResponse = await translator.translate(messageText);
   const json = await translatorResponse.json();
-  messageData.message.text = json.translation;
-  return facebook.send(messageData);
+  message.message.text = json.translation;
+  return facebook.send(message);
 }
 
 async function sendHelpMessage(recipientId) {
-  const messageData = createMessageData(recipientId, messages.help);
-  return facebook.send(messageData);
-}
-
-function createMessageData(recipientId, message = '') {
-  return {
-    recipient: {
-      id: recipientId
-    },
-    message: {
-      text: message
-    }
-  };
+  const message = createMessage(recipientId, messages.help);
+  return facebook.send(message);
 }
 
 module.exports = {
