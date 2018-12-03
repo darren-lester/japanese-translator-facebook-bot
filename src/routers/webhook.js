@@ -27,25 +27,24 @@ webhookRouter.post('/', function(req, res) {
     // Iterate over each entry
     // There may be multiple if batched
     data.entry.forEach(function(pageEntry) {
-      pageEntry.messaging.forEach(function(messagingEvent) {
-        if (messagingEvent.optin) {
-          messaging.receivedAuthentication(messagingEvent);
-        } else if (messagingEvent.message) {
-          messaging.receivedMessage(messagingEvent);
-        } else if (messagingEvent.delivery) {
-          messaging.receivedDeliveryConfirmation(messagingEvent);
-        } else if (messagingEvent.postback) {
-          messaging.receivedPostback(messagingEvent);
-        } else {
-          console.log(
-            'Webhook received unknown messagingEvent: ',
-            messagingEvent
-          );
-        }
-      });
+      pageEntry.messaging.forEach(processMessage);
     });
     res.sendStatus(200);
   }
 });
+
+function processMessage(messagingEvent) {
+  if (messagingEvent.optin) {
+    messaging.receivedAuthentication(messagingEvent);
+  } else if (messagingEvent.message) {
+    messaging.receivedMessage(messagingEvent);
+  } else if (messagingEvent.delivery) {
+    messaging.receivedDeliveryConfirmation(messagingEvent);
+  } else if (messagingEvent.postback) {
+    messaging.receivedPostback(messagingEvent);
+  } else {
+    console.log('Webhook received unknown messagingEvent: ', messagingEvent);
+  }
+}
 
 module.exports = webhookRouter;
