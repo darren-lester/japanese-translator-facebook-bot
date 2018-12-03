@@ -4,6 +4,7 @@ const translator = require('japanese-translator-interface');
 const messages = require('./messages');
 const facebook = require('../facebook');
 const createMessage = require('./create-message');
+const isTextMessage = require('./is-text-message');
 
 function receivedAuthentication(event) {
   console.log('received authentication', event);
@@ -34,10 +35,6 @@ async function receivedMessage(event) {
     const message = createMessage(senderId, messages.onlyText);
     return facebook.send(message);
   }
-}
-
-function isTextMessage(message) {
-  return !!message.text;
 }
 
 function receivedDeliveryConfirmation(event) {
