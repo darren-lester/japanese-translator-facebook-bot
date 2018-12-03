@@ -5,10 +5,7 @@ const messages = require('./messages');
 const facebook = require('../facebook');
 const createMessage = require('./create-message');
 const isTextMessage = require('./is-text-message');
-
-function receivedAuthentication(event) {
-  console.log('received authentication', event);
-}
+const receivedAuthentication = require('./received-authentication');
 
 async function receivedMessage(event) {
   const senderID = event.sender.id;
