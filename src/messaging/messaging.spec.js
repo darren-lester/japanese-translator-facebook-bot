@@ -2,6 +2,7 @@
 
 const nock = require('nock');
 
+const config = require('../config');
 const messaging = require('./messaging');
 
 process.env.TRANSLATOR = 'http://translator';
@@ -12,8 +13,8 @@ nock(process.env.TRANSLATOR)
     translation: 'こんにちは'
   });
 
-const facebook = nock('https://graph.facebook.com')
-  .post(new RegExp('^/v2.6/me/messages'), {
+const facebook = nock(config.facebook.origin)
+  .post(new RegExp(`^${config.facebook.messages}`), {
     recipient: {
       id: 1
     },

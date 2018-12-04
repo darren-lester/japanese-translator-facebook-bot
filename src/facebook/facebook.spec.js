@@ -2,6 +2,7 @@
 
 const nock = require('nock');
 
+const config = require('../config');
 const facebook = require('./facebook');
 
 const LARGE_MESSAGE_REQUEST = {
@@ -27,15 +28,15 @@ describe('facebook', () => {
   let facebookMock;
   describe('send', () => {
     beforeEach(() => {
-      facebookMock = nock('https://graph.facebook.com')
-        .post(new RegExp('^/v2.6/me/messages'), LARGE_MESSAGE_REQUEST)
+      facebookMock = nock(config.facebook.origin)
+        .post(new RegExp(`^${config.facebook.messages}`), LARGE_MESSAGE_REQUEST)
         .reply(200, {
           error: {
             message:
               '(#100) Length of param message[text] must be less than or equal to 320'
           }
         })
-        .post(new RegExp('^/v2.6/me/messages'), {
+        .post(new RegExp(`^${config.facebook.messages}`), {
           recipient: {
             id: 1
           },

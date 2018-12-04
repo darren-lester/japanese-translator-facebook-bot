@@ -2,11 +2,12 @@
 
 const fetch = require('node-fetch');
 
+const config = require('../config');
 const errorResponse = require('./error-response');
 
 async function send(messageData) {
   const response = await fetch(
-    `https://graph.facebook.com/v2.6/me/messages?access_token=${
+    `${config.facebook.origin}${config.facebook.messages}?access_token=${
       process.env.PAGE_ACCESS_TOKEN
     }`,
     {
