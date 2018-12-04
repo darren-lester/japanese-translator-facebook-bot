@@ -8,7 +8,7 @@ const errorResponse = require('./error-response');
 async function send(messageData) {
   const response = await fetch(
     `${config.facebook.origin}${config.facebook.messages}?access_token=${
-      process.env.PAGE_ACCESS_TOKEN
+      config.accessToken
     }`,
     {
       method: 'POST',

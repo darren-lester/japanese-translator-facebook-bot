@@ -1,5 +1,6 @@
 const express = require('express');
 
+const config = require('../config');
 const messaging = require('../messaging');
 
 const webhookRouter = express.Router();
@@ -8,7 +9,7 @@ const webhookRouter = express.Router();
 webhookRouter.get('/', function(req, res) {
   if (
     req.query['hub.mode'] === 'subscribe' &&
-    req.query['hub.verify_token'] === process.env.VALIDATION_TOKEN
+    req.query['hub.verify_token'] === config.validationToken
   ) {
     console.log('Validating webhook');
     res.status(200).send(req.query['hub.challenge']);

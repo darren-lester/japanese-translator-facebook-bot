@@ -4,6 +4,7 @@ const request = require('supertest');
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const config = require('../config');
 const messaging = require('../messaging');
 const webhookRouter = require('./webhook');
 
@@ -30,11 +31,11 @@ describe('/webhook', () => {
     };
 
     beforeAll(() => {
-      process.env.VALIDATION_TOKEN = query['hub.verify_token'];
+      config.validationToken = query['hub.verify_token'];
     });
 
     afterAll(() => {
-      delete process.env.VALIDATION_TOKEN;
+      delete config.validationToken;
     });
 
     describe('request made with correct token', () => {
