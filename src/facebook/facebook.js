@@ -12,6 +12,9 @@ async function send(messageData) {
     }`,
     {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify(messageData)
     }
   );
