@@ -10,6 +10,6 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use('/webhook', webhookRouter);
-app.use('/status', statusRouter);
+app.use('/', statusRouter);
 
 module.exports = app;
