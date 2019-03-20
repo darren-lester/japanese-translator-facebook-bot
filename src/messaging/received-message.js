@@ -28,7 +28,7 @@ async function receivedMessage(event) {
         return sendTranslatedMessage(senderID, text);
     }
   } else {
-    const message = createMessage(senderId, messages.onlyText);
+    const message = createMessage(senderID, messages.onlyText);
     return facebook.send(message);
   }
 }
